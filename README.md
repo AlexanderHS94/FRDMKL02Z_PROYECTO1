@@ -1,0 +1,2 @@
+# FRDMKL02Z_PROYECTO1
+Encendido de led, usando la FREESCALE FRDM-KL02Z
