@@ -32,6 +32,7 @@
  * @file    PROYECTO_ENCENDIDO-LED.c
  * @brief   Application entry point.
  */
+#include <sdk_hal/sdk_hal_uart0.h>
 #include <stdio.h>
 #include "board.h"
 #include "peripherals.h"
@@ -39,6 +40,7 @@
 #include "clock_config.h"
 #include "MKL02Z4.h"
 #include "fsl_debug_console.h"
+
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
@@ -57,5 +59,21 @@ int main(void) {
     BOARD_InitDebugConsole();
 #endif
 
+    (void)uart0Inicializar(115200);
 
-}
+     while(1) {
+     	status_t status;
+     	uint8_t nuevo_byte;
+
+     	if(uart0NuevosDatosEnBuffer()>0){
+     		status=uart0LeerByteDesdeBufferCircular(&nuevo_byte);
+     		if(status==kStatus_Success){
+     			printf("dato:%c\r\n",nuevo_byte);
+     		}else{
+     			printf("error\r\n");
+     		}
+     	}
+     }
+     return 0 ;
+ }
+
