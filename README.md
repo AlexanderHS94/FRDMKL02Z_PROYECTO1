@@ -15,14 +15,13 @@ Caracteristicas de encendido:
 -V: Enciende Verde.
 -v: Apaga Verde.
 
--M: Enciende Magenta.
--m: Apaga Magenta.
+Combinaciones de encendido
 
--Y: Enciende Amarillo.
--y: Apaga Amarillo.
+-AR: Enciende Magenra
+-RV: Enciende Amarillo
+-AV: Enciende Cyan
 
--C: Enciende Cyan.
--c: Apaga Cyan.
+NOTA: los led se apagan de forma independiente
 
 
 toolchain supported

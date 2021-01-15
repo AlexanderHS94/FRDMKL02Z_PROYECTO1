@@ -40,15 +40,25 @@
 #include "clock_config.h"
 #include "MKL02Z4.h"
 #include "fsl_debug_console.h"
+#include "fsl_gpio.h"
 
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
 
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
+
 /*
  * @brief   Application entry point.
  */
 int main(void) {
+
+	  /* Define the init structure for the output LED pin*/
+	    gpio_pin_config_t led_config = {
+	        kGPIO_DigitalOutput, 1,
+	    };
 
   	/* Init board hardware. */
     BOARD_InitBootPins();
@@ -58,6 +68,14 @@ int main(void) {
     /* Init FSL debug console. */
     BOARD_InitDebugConsole();
 #endif
+
+    //CONFIGURA LED ROJO (PTB6)
+    GPIO_PinInit(GPIOB, 6U, &led_config);
+    //CONFIGURA LED VERDE(PTB7)
+    GPIO_PinInit(GPIOB, 7U, &led_config);
+    //CONFIGURA LED AZUL(PTB10)
+    GPIO_PinInit(GPIOB, 10U, &led_config);
+
 
     (void)uart0Inicializar(115200);
 
@@ -72,8 +90,32 @@ int main(void) {
      		}else{
      			printf("error\r\n");
      		}
-     	}
-     }
+       	 if(nuevo_byte=='R'){
+       	          		printf("ROJO ENCENDIDO\r\n");
+       	            	//Sacar 0 por pin LED ROJO (Enciende)
+       	          	    GPIO_PortClear(GPIOB, 1u << 6U);}
+       	if(nuevo_byte=='r'){
+       	       	        printf("ROJO APAGADO\r\n");
+       	       	        //Sacar 1 por pin LED ROJO (apaga)
+       	       	        GPIO_PortSet(GPIOB, 1u << 6U);}
+       	if(nuevo_byte=='V'){
+       	       	        printf("VERDE ENCENDIDO\r\n");
+       	       	        //Sacar 0 por pin LED VERDE (Enciende)
+       	       	         GPIO_PortClear(GPIOB, 1u << 7U);}
+       	if(nuevo_byte=='v'){
+       	       	        printf("VERDE APAGADO\r\n");
+       	       	        //Sacar 1 por pin LED VERDE (apaga)
+       	       	        GPIO_PortSet(GPIOB, 1u << 7U);}
+       	if(nuevo_byte=='A'){
+       	       	        printf("AZUL ENCENDIDO\r\n");
+       	       	        //Sacar 0 por pin LED VERDE (Enciende)
+       	       	         GPIO_PortClear(GPIOB, 1u << 10U);}
+       	if(nuevo_byte=='a'){
+       	       	        printf("AZUL APAGADO\r\n");
+       	       	        //Sacar 1 por pin LED AZUL (apaga)
+       	       	        GPIO_PortSet(GPIOB, 1u << 10U);}
+     	               }
+               }
      return 0 ;
- }
+       }
 
